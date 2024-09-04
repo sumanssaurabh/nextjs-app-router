@@ -2,7 +2,11 @@ import Image from 'next/image';
 
 import Link from 'next/link';
 
-export default function Home() {
+type Props = {
+  params: { lng: string };
+};
+
+export default async function Home({ params: { lng } }: Props) {
   return (
     <main className=' min-h-screen  p-24'>
       <h1>Hello</h1>

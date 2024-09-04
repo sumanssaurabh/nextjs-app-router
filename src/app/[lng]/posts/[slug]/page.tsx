@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 // Define the props type
 type Props = {
-  params: { slug: string };
+  params: { lng: string; slug: string };
   searchParams: {};
 };
 

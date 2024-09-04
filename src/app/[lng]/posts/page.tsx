@@ -1,9 +1,12 @@
 // /app/posts/page.tsx
 
+// import { getDictionary } from '@/app/[lng]/dictionaries';
+
 import { Metadata } from 'next';
 import Link from 'next/link';
 
 type Props = {
+  params: { lng: string };
   searchParams: {
     page?: string;
     search?: string;
@@ -28,9 +31,11 @@ const fetchPosts = async (page: number = 1, search: string = '') => {
   return data.response;
 };
 
-const Page = async ({ searchParams }: Props) => {
+const Page = async ({ searchParams, params: { lng } }: Props) => {
   const currentPage = parseInt(searchParams.page || '1', 10);
   const searchQuery = searchParams.search || '';
+
+  // const dict = await getDictionary(lng);
 
   // Fetch posts server-side
   const {
