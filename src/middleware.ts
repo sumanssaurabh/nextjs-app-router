@@ -5,8 +5,6 @@ import Negotiator from 'negotiator';
 import { locales, type Locale, defaultLocale } from './i18n.config';
 
 function getLocale(request: NextRequest) {
-  // let languages = new Negotiator({ headers }).languages();
-
   const headers = request.headers.get('accept-language') || '';
 
   // Create a Negotiator instance with request headers
@@ -19,7 +17,7 @@ function getLocale(request: NextRequest) {
   // Get the preferred languages from the Accept-Language header
   const languages = negotiator.languages();
 
-  // Return the first preferred language, or default to 'en-US'
+  // Return the first preferred language, or default
   return languages[0] || defaultLocale;
 }
 
