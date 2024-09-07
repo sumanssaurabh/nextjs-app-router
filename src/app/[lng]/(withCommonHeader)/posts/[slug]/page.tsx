@@ -3,7 +3,7 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 
-import { cookies, headers } from 'next/headers';
+import { cookies } from 'next/headers';
 
 type Props = {
   params: { lng: string; slug: string };

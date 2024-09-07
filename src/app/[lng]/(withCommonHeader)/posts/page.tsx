@@ -53,7 +53,7 @@ const Page = async ({ searchParams, params: { lng } }: Props) => {
     limit,
   } = await fetchPosts(currentPage, searchQuery);
 
-  console.log('api', { posts, total, page, limit });
+  // console.log('api', { posts, total, page, limit });
 
   return (
     <div className='m-4'>
@@ -79,7 +79,6 @@ const Page = async ({ searchParams, params: { lng } }: Props) => {
         </button>
       </form>
 
-      {/* Posts List */}
       {posts.length > 0 ? (
         posts.map((post: any) => (
           <div className='py-6 border-b' key={post._id}>
@@ -89,14 +88,12 @@ const Page = async ({ searchParams, params: { lng } }: Props) => {
             >
               {post.title}
             </Link>
-            <p className='text-gray-600 mt-2'>{post.excerpt}</p>
           </div>
         ))
       ) : (
         <p className='text-gray-600'>No posts found.</p>
       )}
 
-      {/* Pagination */}
       <div className='pagination mt-6 flex justify-center'>
         {Array.from({ length: Math.ceil(total / limit) }, (_, index) => (
           <Link
