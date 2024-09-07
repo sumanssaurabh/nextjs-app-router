@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-type Props = {};
+type Props = { params: { lng: string } };
 
 const fetchPosts = async (page: number = 1, search: string = '') => {
   const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;

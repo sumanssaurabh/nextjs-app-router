@@ -3,18 +3,18 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 
-// Define the props type
+import { cookies, headers } from 'next/headers';
+
 type Props = {
   params: { lng: string; slug: string };
   searchParams: {};
 };
 
-// Function to fetch blog data
 const fetchBlogPost = async (slug: string) => {
   const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
   try {
-    const response = await fetch(`${BASE_URL}/api/v1/web/blogs/${slug}`, {
+    const response = await fetch(`${BASE_URL}/api/v1/posts/${slug}`, {
       cache: 'no-store', // Ensure fresh data
     });
 
@@ -23,7 +23,7 @@ const fetchBlogPost = async (slug: string) => {
     }
 
     const data = await response.json();
-    return data.response;
+    return data;
   } catch (error) {
     return null;
   }
@@ -46,13 +46,17 @@ export const generateMetadata = async ({
 
   return {
     title: post.title,
-    description: post.body.slice(0, 150), // Provide a short description for SEO
+    description: post.content.slice(0, 150), // Provide a short description for SEO
   };
 };
 
 // Main page component to render blog details
 const Page = async ({ params }: Props) => {
   const post = await fetchBlogPost(params.slug);
+
+  const cook = cookies();
+
+  console.log(cook);
 
   if (!post) {
     return (
@@ -70,9 +74,12 @@ const Page = async ({ params }: Props) => {
       <h2 className='py-4'>
         <Link href={`/`}>Home page</Link>
       </h2>
-      <div key={post.id}>
+      <div>
         <h2>{post.title}</h2>
-        <p className='py-2' dangerouslySetInnerHTML={{ __html: post.body }}></p>
+        <p
+          className='py-2'
+          dangerouslySetInnerHTML={{ __html: post.content }}
+        ></p>
       </div>
     </div>
   );
